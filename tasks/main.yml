@@ -1,0 +1,38 @@
+---
+# tasks file for ansible-ganglia
+
+
+# Configure the monitoring host.
+- include: ganglia-monitor-redhat.yml
+  when: "ansible_os_family == 'RedHat' and inventory_hostname == 'ganglia-1'" 
+
+- include: ganglia-monitor-debain.yml
+  when: "ansible_os_family == 'Debain' and inventory_hostname == 'ganglia-1'" 
+
+
+# Configure the monitored hosts.
+- include: monitored-host-redhat.yml
+  when: "ansible_os_family == 'RedHat'"
+
+- include: monitored-host-debain.yml
+  when: "ansible_os_family == 'Debain'"
+
+
+# Setup the monitoring config
+- name: Setup gmond config
+  template:
+    src: templates/gmond.conf
+    dest: /etc/ganglia/
+    owner: root
+    group: root
+    mode: 655
+  notify: Start monitored-host
+
+- name: Configure apache
+  template: 
+    src: templates/ganglia.conf
+    dest: /etc/httpd/conf.d/
+    owner: root
+    group: root
+    mode: 655
+  notify: Start ganglia-monitor

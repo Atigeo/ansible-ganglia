@@ -1,0 +1,20 @@
+---
+# handlers file for ansible-ganglia
+
+- name: Start monitored-host
+  service:
+    name: gmond
+    enabled: yes
+    state: restarted
+
+- name: Start ganglia-monitor
+  service:
+    name: gmetad
+    enabled: yes
+    state: restarted
+  notify: Restart apache
+
+- name: Restart apache
+  service: 
+    name: httpd
+    state: restarted

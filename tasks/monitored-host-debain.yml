@@ -1,0 +1,6 @@
+---
+# Install ganglia-monitor in Debain
+
+- name: Install ganglia-monitor
+  package: name=ganglia-monitor state=latest
+  notify: Start monitored-host

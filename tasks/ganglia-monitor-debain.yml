@@ -1,0 +1,11 @@
+---
+# Install ganglia-monitor in Debain
+
+- name: Install ganglia
+  package: name={{ item }} state=latest
+  with_items:
+    - ganglia
+    - rrdtool
+    - ganglia-gmetad
+    - ganglia-webfrontend
+  notify: Start ganglia-monitor

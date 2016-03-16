@@ -1,0 +1,8 @@
+---
+# vars file for ansible-ganglia
+
+cluster_name: unspecified
+cluster_owner: unspecified
+cluster_latlong: unspecified
+cluster_url: unspecified
+cluster_location: unspecified
