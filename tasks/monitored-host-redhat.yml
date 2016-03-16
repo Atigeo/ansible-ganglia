@@ -5,4 +5,11 @@
   package: name=ganglia-gmond state=latest
   notify: Start monitored-host
 
-  
+- name: Configure apache
+  template: 
+    src: templates/ganglia.conf
+    dest: /etc/httpd/conf.d/
+    owner: root
+    group: root
+    mode: 655
+  notify: Start ganglia-monitor
