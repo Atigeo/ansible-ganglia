@@ -16,14 +16,3 @@
 
 - include: monitored-host-debain.yml
   when: "ansible_os_family == 'Debain'"
-
-
-# Setup the monitoring config
-- name: Setup gmond config
-  template:
-    src: templates/gmond.conf
-    dest: /etc/ganglia/
-    owner: root
-    group: root
-    mode: 655
-  notify: Start monitored-host

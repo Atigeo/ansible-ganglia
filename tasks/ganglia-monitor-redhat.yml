@@ -2,10 +2,19 @@
 # Install ganglia-monitor in RedHat
 
 - name: Install ganglia-monitor
-  yum: name={{ item }} enablerepo=* state=latest
+  yum: name={{ item }} state=latest
   with_items:
     - rrdtool
     - ganglia-gmetad
     - ganglia-web
     - ganglia
+  notify: Start ganglia-monitor
+
+- name: Configure apache
+  template: 
+    src: templates/ganglia.conf
+    dest: /etc/httpd/conf.d/
+    owner: root
+    group: root
+    mode: 0644
   notify: Start ganglia-monitor

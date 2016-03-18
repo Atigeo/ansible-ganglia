@@ -4,3 +4,13 @@
 - name: Install ganglia-monitor
   package: name=ganglia-monitor state=latest
   notify: Start monitored-host
+
+# Setup the monitoring config
+- name: Setup gmond config
+  template:
+    src: templates/gmond.ubuntu.conf
+    dest: /etc/ganglia/gmond.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Start monitored-host
